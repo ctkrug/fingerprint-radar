@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { combineIndependentBits, estimateUniqueness, shannonEntropyBits } from './entropy.js';
+import { combineIndependentBits, shannonEntropyBits } from './entropy.js';
 
 describe('shannonEntropyBits', () => {
   it('returns -log2(p) for a normal probability', () => {
@@ -25,12 +25,5 @@ describe('combineIndependentBits', () => {
 
   it('returns 0 for an empty signal list', () => {
     expect(combineIndependentBits([])).toBe(0);
-  });
-});
-
-describe('estimateUniqueness', () => {
-  it('converts total bits into a 1-in-N figure', () => {
-    expect(estimateUniqueness(0)).toBe(1);
-    expect(estimateUniqueness(10)).toBe(1024);
   });
 });

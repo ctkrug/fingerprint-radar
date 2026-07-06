@@ -8,7 +8,3 @@ export function shannonEntropyBits(p) {
 export function combineIndependentBits(bitsList) {
   return bitsList.reduce((total, bits) => total + bits, 0);
 }
-
-export function estimateUniqueness(totalBits) {
-  return Math.pow(2, totalBits);
-}
