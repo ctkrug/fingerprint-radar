@@ -14,6 +14,11 @@ describe('formatCount', () => {
     expect(formatCount(15_000)).toBe('15.0 thousand');
   });
 
+  it('promotes to the next unit rather than showing "1000 thousand"', () => {
+    expect(formatCount(999_999)).toBe('1.00 million');
+    expect(formatCount(999_999_999)).toBe('1.00 billion');
+  });
+
   it('returns "unique" for a non-finite count', () => {
     expect(formatCount(Infinity)).toBe('unique');
   });
