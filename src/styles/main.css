@@ -1,0 +1,60 @@
+/* Scaffold layout for the pre-build placeholder page.
+   The full radar-scope hero (docs/DESIGN.md) lands with the BUILD phase. */
+
+body {
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.wordmark span {
+  color: var(--accent);
+}
+
+.panel {
+  background-color: var(--surface-1);
+  border-radius: var(--radius);
+  box-shadow: var(--hairline);
+  padding: var(--space-4);
+}
+
+.panel__label {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 var(--space-1);
+}
+
+.panel__value {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--accent);
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: var(--space-4) var(--space-2);
+  }
+
+  .panel__value {
+    font-size: 2rem;
+  }
+}
