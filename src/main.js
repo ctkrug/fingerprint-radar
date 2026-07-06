@@ -1,3 +1,4 @@
+import './fonts.js';
 import { mountApp } from './app.js';
 
 const root = document.getElementById('app');
