@@ -49,4 +49,9 @@ describe('copySummary', () => {
   it('returns false when no clipboard is available', async () => {
     expect(await copySummary('x', { clipboard: undefined })).toBe(false);
   });
+
+  it('returns false instead of throwing when the clipboard write rejects', async () => {
+    const writeText = vi.fn().mockRejectedValue(new DOMException('denied', 'NotAllowedError'));
+    await expect(copySummary('x', { clipboard: { writeText } })).resolves.toBe(false);
+  });
 });
