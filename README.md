@@ -34,8 +34,9 @@ with [Vitest](https://vitest.dev/). No UI framework, no backend.
 
 ## Status
 
-Early scaffold — see [`docs/VISION.md`](docs/VISION.md) for the full design and
-[`docs/BACKLOG.md`](docs/BACKLOG.md) for the build plan.
+Early scaffold — see [`docs/VISION.md`](docs/VISION.md) for the full design,
+[`docs/BACKLOG.md`](docs/BACKLOG.md) for the build plan, and
+[`docs/DESIGN.md`](docs/DESIGN.md) for the visual direction.
 
 ## Development
 
