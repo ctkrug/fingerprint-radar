@@ -2,6 +2,19 @@
    Dark drafting-table navy, radar-scope cyan, monospace data voice.
    Follows docs/DESIGN.md tokens (tokens.css). */
 
+/* Visually-hidden, still announced to assistive tech. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ---- Atmosphere: blueprint grid + radial vignette, never a flat fill ---- */
 body {
   background-color: var(--bg);

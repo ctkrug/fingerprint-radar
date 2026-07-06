@@ -37,11 +37,14 @@ export function appShellHTML() {
       <main class="scope-layout">
         <section class="scope-panel" aria-label="Uniqueness radar scope">
           <canvas class="scope" id="scope"></canvas>
-          <div class="scope-center" id="score" aria-live="polite">
+          <!-- The visual score animates every frame, so it is presentational;
+               a single settled sentence is announced via #score-status below. -->
+          <div class="scope-center" id="score" aria-hidden="true">
             <div class="score__bits" id="score-bits">—</div>
             <div class="score__unit">bits of entropy</div>
             <div class="score__oneinn" id="score-oneinn">measuring…</div>
           </div>
+          <p class="sr-only" id="score-status" role="status"></p>
           <div class="gauge" id="gauge" role="img" aria-label="Identifiability band">
             <div class="gauge__seg gauge__seg--low" data-band="low"><span>Low</span></div>
             <div class="gauge__seg gauge__seg--medium" data-band="medium"><span>Medium</span></div>

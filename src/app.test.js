@@ -51,6 +51,17 @@ describe('mountApp', () => {
     expect(root.querySelector('.gauge__seg.is-active')).not.toBeNull();
   });
 
+  it('announces a single settled summary via the status live region', async () => {
+    const root = await mount(measured);
+    const status = root.querySelector('#score-status');
+    expect(status.getAttribute('role')).toBe('status');
+    expect(status.textContent).toMatch(
+      /scores .* bits of entropy, approximately 1 in .* browsers — \w+ identifiability\./,
+    );
+    // The animated visual score is presentational, not announced per frame.
+    expect(root.querySelector('#score').getAttribute('aria-hidden')).toBe('true');
+  });
+
   it('restores the copy button label after a rapid double-click', async () => {
     const flush = async () => {
       for (let i = 0; i < 6; i += 1) await Promise.resolve();

@@ -7,7 +7,7 @@ import { computeReport } from './report.js';
 import { createRadar } from './radar.js';
 import { createSounder } from './sound.js';
 import { buildSummary, copySummary } from './summary.js';
-import { formatBits } from './format.js';
+import { formatBits, formatUniqueness } from './format.js';
 import { appShellHTML, renderBreakdown, renderGauge, renderScore } from './ui.js';
 
 const REVEAL_STAGGER_MS = 220;
@@ -105,6 +105,16 @@ export async function mountApp(root, deps = {}) {
   renderGauge(root, report.band);
   renderScore(root, { ...report, totalBits: report.totalBits });
   animateBits(root.querySelector('#score-bits'), report.totalBits, reducedMotion);
+
+  // Announce the settled result once, so a screen reader hears a clean summary
+  // instead of every intermediate frame of the count-up animation.
+  const status = root.querySelector('#score-status');
+  if (status) {
+    status.textContent =
+      `Your browser scores ${formatBits(report.totalBits)} bits of entropy, ` +
+      `approximately ${formatUniqueness(report.oneInN)} browsers — ` +
+      `${report.band.label} identifiability.`;
+  }
 
   if (radar) {
     radar.setSignals(report.scored);
