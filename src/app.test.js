@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { mountApp } from './app.js';
 
 // Force reduced motion so the bits score is set to its final value
@@ -49,5 +49,30 @@ describe('mountApp', () => {
   it('marks the gauge with an identifiability band', async () => {
     const root = await mount(measured);
     expect(root.querySelector('.gauge__seg.is-active')).not.toBeNull();
+  });
+
+  it('restores the copy button label after a rapid double-click', async () => {
+    const flush = async () => {
+      for (let i = 0; i < 6; i += 1) await Promise.resolve();
+    };
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    globalThis.navigator.clipboard = { writeText };
+    const root = await mount(measured);
+    const btn = root.querySelector('#copy-btn');
+    const label = btn.querySelector('.btn__label');
+    const original = label.textContent;
+
+    vi.useFakeTimers();
+    btn.click();
+    await flush();
+    btn.click();
+    await flush();
+    expect(label.textContent).toBe('Copied!');
+
+    vi.advanceTimersByTime(2000);
+    expect(label.textContent).toBe(original);
+
+    vi.useRealTimers();
+    delete globalThis.navigator.clipboard;
   });
 });
