@@ -8,6 +8,8 @@ export default defineConfig({
     outDir: 'dist',
   },
   test: {
-    environment: 'jsdom',
+    // Pure-logic tests run in fast Node; only DOM-touching suites opt into
+    // jsdom via a `// @vitest-environment jsdom` docblock. Keeps the suite quick.
+    environment: 'node',
   },
 });
