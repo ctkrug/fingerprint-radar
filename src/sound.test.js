@@ -67,3 +67,79 @@ describe('createSounder', () => {
     expect(constructed).toBe(0); // muted -> context never created
   });
 });
+
+function fakeAudio() {
+  const nodes = { oscillators: 0, started: 0, stopped: 0 };
+  const param = () => ({ setValueAtTime() {}, exponentialRampToValueAtTime() {} });
+  const ctx = {
+    currentTime: 0,
+    destination: {},
+    createOscillator() {
+      nodes.oscillators += 1;
+      return {
+        type: 'sine',
+        frequency: param(),
+        connect() {},
+        start() {
+          nodes.started += 1;
+        },
+        stop() {
+          nodes.stopped += 1;
+        },
+      };
+    },
+    createGain() {
+      return { gain: param(), connect() {} };
+    },
+  };
+  return { ctx, nodes };
+}
+
+describe('ping playback', () => {
+  it('starts and stops an oscillator when unmuted with a working context', () => {
+    const { ctx, nodes } = fakeAudio();
+    const sounder = createSounder({ AudioCtx: function () { return ctx; }, storage: memoryStorage() });
+    sounder.ping(660);
+    expect(nodes.oscillators).toBe(1);
+    expect(nodes.started).toBe(1);
+    expect(nodes.stopped).toBe(1);
+  });
+
+  it('creates the AudioContext lazily and reuses it across pings', () => {
+    let constructed = 0;
+    const { ctx } = fakeAudio();
+    const sounder = createSounder({
+      AudioCtx: function () {
+        constructed += 1;
+        return ctx;
+      },
+      storage: memoryStorage(),
+    });
+    sounder.ping();
+    sounder.ping();
+    expect(constructed).toBe(1); // one context, reused
+  });
+
+  it('swallows an AudioContext constructor that throws', () => {
+    const Boom = function () {
+      throw new Error('no audio');
+    };
+    const sounder = createSounder({ AudioCtx: Boom, storage: memoryStorage() });
+    expect(() => sounder.ping(440)).not.toThrow();
+  });
+
+  it('swallows a throwing oscillator node', () => {
+    const ctx = {
+      currentTime: 0,
+      destination: {},
+      createOscillator() {
+        throw new Error('node failure');
+      },
+      createGain() {
+        return { gain: {}, connect() {} };
+      },
+    };
+    const sounder = createSounder({ AudioCtx: function () { return ctx; }, storage: memoryStorage() });
+    expect(() => sounder.ping(440)).not.toThrow();
+  });
+});
