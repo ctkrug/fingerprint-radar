@@ -59,19 +59,23 @@ function wireCopy(root, getReport) {
   const btn = root.querySelector('#copy-btn');
   if (!btn) return;
   const label = btn.querySelector('.btn__label');
+  // Capture the resting label once; a rapid second click must not treat the
+  // transient "Copied!" text as the value to restore to.
+  const defaultLabel = label ? label.textContent : '';
+  let restoreTimer = null;
   btn.addEventListener('click', async () => {
     const report = getReport();
     if (!report) return;
     const ok = await copySummary(buildSummary(report));
-    if (label) {
-      const original = label.textContent;
-      label.textContent = ok ? 'Copied!' : 'Copy failed';
-      btn.classList.add('is-flashed');
-      globalThis.setTimeout?.(() => {
-        label.textContent = original;
-        btn.classList.remove('is-flashed');
-      }, 1600);
-    }
+    if (!label) return;
+    if (restoreTimer != null) globalThis.clearTimeout?.(restoreTimer);
+    label.textContent = ok ? 'Copied!' : 'Copy failed';
+    btn.classList.add('is-flashed');
+    restoreTimer = globalThis.setTimeout?.(() => {
+      label.textContent = defaultLabel;
+      btn.classList.remove('is-flashed');
+      restoreTimer = null;
+    }, 1600);
   });
 }
 
