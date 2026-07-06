@@ -57,7 +57,11 @@ that calls it and renders a designed error state on failure.
 ## Run / test / build
 
 - Dev server: `npm run dev`
-- Tests: `npm test` (Vitest; pure logic runs in Node, `ui`/`app` suites opt into jsdom)
+- Tests: `npm test` (Vitest; pure logic runs in Node, `ui`/`app` suites opt into
+  jsdom via a docblock; `src/test-setup.js` stubs the jsdom canvas).
+- Coverage: `npm i -D @vitest/coverage-v8` then
+  `npx vitest run --coverage --coverage.exclude='src/{main,fonts}.js'`
+  (the two bootstrap modules have no testable logic). Core logic sits at ~98%.
 - Production build: `npm run build` → self-contained static site in `dist/`,
   base-path-relative so it serves from a subpath.
 
