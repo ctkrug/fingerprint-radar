@@ -22,6 +22,12 @@ describe('mute persistence', () => {
     expect(readMuted(storage)).toBe(false);
   });
 
+  it('reads a corrupt or unexpected stored value as not muted', () => {
+    expect(readMuted(memoryStorage({ 'fpr:muted': 'true' }))).toBe(false);
+    expect(readMuted(memoryStorage({ 'fpr:muted': '' }))).toBe(false);
+    expect(readMuted(memoryStorage({ 'fpr:muted': '{oops}' }))).toBe(false);
+  });
+
   it('tolerates a throwing storage', () => {
     const bad = {
       getItem: () => {
