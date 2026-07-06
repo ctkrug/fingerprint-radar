@@ -6,6 +6,11 @@ import { formatBits, formatUniqueness } from './format.js';
 
 const WORDMARK = `<span class="wordmark__fp">Fingerprint</span><span class="wordmark__radar">Radar</span>`;
 
+// The built site ships without docs/, so link the methodology to its source.
+const METHODOLOGY_URL =
+  'https://github.com/ctkrug/fingerprint-radar/blob/main/docs/METHODOLOGY.md';
+const EXTERNAL = 'target="_blank" rel="noopener noreferrer"';
+
 export function appShellHTML() {
   return `
     <div class="app">
@@ -51,7 +56,7 @@ export function appShellHTML() {
           <p class="caveat" id="caveat">
             Signals are combined assuming independence, so the “1 in N” above is an
             <strong>upper bound</strong> — real signals overlap. See the
-            <a href="./docs/METHODOLOGY.md">methodology</a>.
+            <a href="${METHODOLOGY_URL}" ${EXTERNAL}>methodology</a>.
           </p>
         </aside>
       </main>
@@ -59,7 +64,7 @@ export function appShellHTML() {
       <footer class="privacy" id="privacy">
         <span class="privacy__dot" aria-hidden="true"></span>
         <span>Nothing leaves your browser. Every signal is measured and every bit computed
-          in this tab — zero network calls. <a href="./docs/METHODOLOGY.md">How it works</a>.</span>
+          in this tab — zero network calls. <a href="${METHODOLOGY_URL}" ${EXTERNAL}>How it works</a>.</span>
       </footer>
     </div>
   `;
