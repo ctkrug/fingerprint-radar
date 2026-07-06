@@ -16,6 +16,15 @@ describe('shannonEntropyBits', () => {
   it('caps extremely small probabilities at the max bit ceiling', () => {
     expect(shannonEntropyBits(1e-20)).toBe(32);
   });
+
+  it('never returns negative bits for a probability at or above 1', () => {
+    expect(shannonEntropyBits(1)).toBe(0);
+    expect(shannonEntropyBits(2)).toBe(0);
+  });
+
+  it('contributes zero bits for a NaN probability rather than propagating NaN', () => {
+    expect(shannonEntropyBits(NaN)).toBe(0);
+  });
 });
 
 describe('combineIndependentBits', () => {
