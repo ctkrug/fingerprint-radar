@@ -37,7 +37,9 @@ export const SIGNAL_IDS = [
 ];
 
 export async function collectAll(collectors = DEFAULT_COLLECTORS) {
-  const settled = await Promise.allSettled(collectors.map((collect) => collect()));
+  // Wrap in an async thunk so a synchronous throw becomes a rejection that
+  // allSettled can isolate, not an error that aborts the whole map.
+  const settled = await Promise.allSettled(collectors.map(async (collect) => collect()));
   return settled
     .filter((result) => result.status === 'fulfilled' && result.value)
     .map((result) => result.value);
