@@ -14,9 +14,16 @@ export function formatCount(n) {
   if (!Number.isFinite(n)) return 'unique';
   if (n < 1) return '1';
   if (n < 1000) return String(Math.round(n));
-  for (const { value, suffix } of SCALES) {
+  for (let i = 0; i < SCALES.length; i += 1) {
+    let { value, suffix } = SCALES[i];
     if (n >= value) {
-      const scaled = n / value;
+      let scaled = n / value;
+      // Rounding can push a value like 999,999 to "1000 thousand"; promote it to
+      // the next-larger unit so it reads "1.00 million" instead.
+      if (scaled >= 999.5 && i > 0) {
+        ({ value, suffix } = SCALES[i - 1]);
+        scaled = n / value;
+      }
       const digits = scaled >= 100 ? 0 : scaled >= 10 ? 1 : 2;
       return `${scaled.toFixed(digits)}${suffix}`;
     }
