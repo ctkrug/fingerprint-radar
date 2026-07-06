@@ -20,7 +20,7 @@ describe('collectLocale', () => {
   });
 
   it('handles a missing navigator without throwing', () => {
-    const signal = collectLocale({ nav: undefined });
+    const signal = collectLocale({ nav: null });
     expect(signal.value).toBe('unknown');
     expect(signal.bucket).toBe('uncommon');
   });
