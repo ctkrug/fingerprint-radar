@@ -32,6 +32,12 @@ export async function copySummary(text, { clipboard = globalThis.navigator?.clip
   if (!clipboard || typeof clipboard.writeText !== 'function') {
     return false;
   }
-  await clipboard.writeText(text);
-  return true;
+  try {
+    await clipboard.writeText(text);
+    return true;
+  } catch {
+    // Clipboard writes reject when the document isn't focused or permission is
+    // denied — report failure so the UI shows "Copy failed", never a wedge.
+    return false;
+  }
 }
