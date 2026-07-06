@@ -11,5 +11,8 @@ export default defineConfig({
     // Pure-logic tests run in fast Node; only DOM-touching suites opt into
     // jsdom via a `// @vitest-environment jsdom` docblock. Keeps the suite quick.
     environment: 'node',
+    // Stub the missing jsdom canvas so collectors take their guarded fallback
+    // path silently instead of logging "not implemented".
+    setupFiles: ['./src/test-setup.js'],
   },
 });
