@@ -32,11 +32,23 @@ into a single, honest "1 in N browsers look like this" estimate.
 Vanilla JavaScript, client-side only, bundled with [Vite](https://vitejs.dev/) and tested
 with [Vitest](https://vitest.dev/). No UI framework, no backend.
 
+## How the score works
+
+Every signal narrows down which browser you are. If a value appears in a fraction `p` of
+browsers, observing it contributes `-log2(p)` bits of entropy. Fingerprint Radar classifies
+each signal into a bucket, looks up that bucket's base rate in a bundled reference table
+(`src/data/reference-frequencies.json`), sums the bits, and turns the total into a "1 in N"
+figure and a Low/Medium/High identifiability band. Because combining signals assumes
+independence — which is only approximately true — the "1 in N" is stated as an upper bound.
+Sources and rationale: [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md).
+
 ## Status
 
-Early scaffold — see [`docs/VISION.md`](docs/VISION.md) for the full design,
-[`docs/BACKLOG.md`](docs/BACKLOG.md) for the build plan, and
-[`docs/DESIGN.md`](docs/DESIGN.md) for the visual direction.
+Functional v1: live score on load, eight signal collectors, per-signal breakdown with
+explanations, uniqueness estimate, identifiability gauge, copy-to-clipboard export, and the
+radar-scope UI. See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the module map,
+[`docs/VISION.md`](docs/VISION.md) for the design, [`docs/BACKLOG.md`](docs/BACKLOG.md) for
+the plan, and [`docs/DESIGN.md`](docs/DESIGN.md) for the visual direction.
 
 ## Development
 
