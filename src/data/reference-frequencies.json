@@ -1,0 +1,27 @@
+{
+  "_comment": "Approximate population base rates per signal bucket. Each value is the estimated share of browsers falling in that bucket (a probability strictly between 0 and 1). bits = -log2(p). Sources and caveats: see docs/METHODOLOGY.md. These are order-of-magnitude educational estimates, not a lookup of your exact value's true global frequency.",
+  "canvas": {
+    "buckets": { "measured": 0.0032, "unavailable": 0.04 }
+  },
+  "audio": {
+    "buckets": { "measured": 0.024, "unavailable": 0.05 }
+  },
+  "webgl": {
+    "buckets": { "measured": 0.031, "unavailable": 0.06 }
+  },
+  "fonts": {
+    "buckets": { "measured": 0.0625, "unavailable": 0.1 }
+  },
+  "timezone": {
+    "buckets": { "measured": 0.125 }
+  },
+  "locale": {
+    "buckets": { "common": 0.28, "uncommon": 0.04 }
+  },
+  "screen": {
+    "buckets": { "common": 0.08, "uncommon": 0.012 }
+  },
+  "hardware": {
+    "buckets": { "measured": 0.05, "unknown": 0.2 }
+  }
+}
