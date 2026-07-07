@@ -5,7 +5,8 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   base: './',
   build: {
-    outDir: 'dist',
+    // Publish target: apps.charliekrug.com/fingerprint-radar serves this dir.
+    outDir: 'site',
   },
   test: {
     // Pure-logic tests run in fast Node; only DOM-touching suites opt into
