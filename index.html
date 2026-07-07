@@ -24,6 +24,88 @@
   </head>
   <body>
     <div id="app"></div>
+
+    <section class="about" aria-labelledby="about-title">
+      <div class="about__inner">
+        <h2 class="about__title" id="about-title">What Fingerprint Radar tells you</h2>
+        <p>
+          Every browser leaks small details as it renders a page: the exact way it draws
+          text to a canvas, which fonts are installed, your timezone and language, the
+          graphics card behind WebGL, and the sound your audio stack produces. On their own
+          these look harmless. Combined, they often single out one browser in millions, which
+          is how sites recognise you after you have cleared cookies or switched to a private
+          window. Fingerprint Radar measures those same signals and shows you the result as a
+          real number.
+        </p>
+        <p>
+          For each signal it looks up how common your value is, then computes its
+          <a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)">Shannon entropy</a>
+          in bits: a value shared by half of all browsers adds 1 bit, a value shared by one in
+          a thousand adds about 10. Adding the bits gives a total, which becomes a plain
+          "1 in N browsers look like yours" estimate and a Low, Medium, or High
+          identifiability band. Open any signal in the breakdown to read what it measured and
+          why it narrows down who you are.
+        </p>
+        <p>
+          Nothing you see here is uploaded. Every signal is read and every bit is calculated
+          in this tab, with no analytics and no network calls. The fonts are bundled with the
+          page rather than loaded from a font CDN, so even loading the site does not hand your
+          address to a third party.
+        </p>
+
+        <h3 class="about__subtitle">How to read your score</h3>
+        <p>
+          Watch the scope: each blip is one measured signal, sized by how much it gives away.
+          The number at the centre is your total entropy in bits. More bits mean a rarer,
+          easier-to-single-out browser. A high score is not a virus or a warning; it just
+          means your particular combination of settings is uncommon. The most effective ways
+          to blend in are using a mainstream browser at its default window size and avoiding
+          unusual font or extension setups. Reload at any time to recompute from scratch.
+        </p>
+
+        <h3 class="about__subtitle">Questions people ask</h3>
+        <dl class="faq">
+          <dt>Does Fingerprint Radar send my data anywhere?</dt>
+          <dd>
+            No. Every measurement and calculation happens locally in your browser. There is no
+            server, no analytics, and no request that carries your results off the page.
+          </dd>
+          <dt>What does the bits number actually mean?</dt>
+          <dd>
+            Bits of entropy measure how much a signal narrows down which browser you are. Each
+            bit roughly halves the crowd you blend into, so 20 bits means about one in a
+            million browsers share your full set of values.
+          </dd>
+          <dt>Why is the "1 in N" called an upper bound?</dt>
+          <dd>
+            Combining signals assumes they are independent, but real signals overlap (a phone
+            has a predictable screen size and GPU together). The true crowd is usually larger
+            than the estimate, so treat the number as a ceiling on how rare you are.
+          </dd>
+          <dt>How do I make my browser less unique?</dt>
+          <dd>
+            Use a common browser and operating system, keep the window at a default size,
+            avoid installing unusual fonts, and consider a browser like Tor that deliberately
+            makes many users look identical. Blending in beats standing out.
+          </dd>
+          <dt>Is a high identifiability score dangerous?</dt>
+          <dd>
+            Not by itself. It means your browser is easy to recognise across sites without
+            cookies, which matters for tracking and ad targeting. It is a privacy signal, not
+            a security breach.
+          </dd>
+        </dl>
+      </div>
+    </section>
+
+    <footer class="page-foot">
+      <span class="page-foot__note">Measured entirely in your browser. Nothing was uploaded.</span>
+      <span class="page-foot__links">
+        <a class="page-foot__link" href="https://github.com/ctkrug/fingerprint-radar">View on GitHub</a>
+        <a class="page-foot__link" href="https://apps.charliekrug.com">More by Charlie Krug</a>
+      </span>
+    </footer>
+
     <script type="module" src="./src/main.js"></script>
   </body>
 </html>

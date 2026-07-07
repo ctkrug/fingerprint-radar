@@ -473,6 +473,120 @@ body {
   color: var(--danger);
 }
 
+/* ---- Below-the-fold explainer + FAQ ---- */
+.about {
+  border-top: 1px solid var(--grid-line);
+  padding: var(--space-6) clamp(16px, 3vw, 32px);
+}
+
+.about__inner {
+  max-width: 68ch;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.about__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--text);
+}
+
+.about__subtitle {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  margin: var(--space-3) 0 0;
+  color: var(--accent);
+}
+
+.about p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.about a {
+  color: var(--accent);
+  text-decoration-color: rgba(0, 229, 199, 0.4);
+  text-underline-offset: 2px;
+}
+
+.about a:hover {
+  text-decoration-color: var(--accent);
+}
+
+.faq {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.faq dt {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--text);
+  border-left: 2px solid var(--accent-support);
+  padding-left: var(--space-2);
+}
+
+.faq dd {
+  margin: 6px 0 0;
+  padding-left: var(--space-2);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* ---- Page footer (portfolio + source links) ---- */
+.page-foot {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--space-3) clamp(16px, 3vw, 32px) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  border-top: 1px solid var(--grid-line);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.page-foot__links {
+  display: inline-flex;
+  gap: var(--space-3);
+}
+
+.page-foot__link {
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 229, 199, 0.35);
+  padding-bottom: 2px;
+  transition:
+    color var(--motion-ui),
+    border-color var(--motion-ui);
+}
+
+.page-foot__link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.page-foot__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
   .scope-layout {
